@@ -1,0 +1,30 @@
+﻿
+Module:
+	DeclDefs
+
+DeclDefs:
+	DeclDef DeclDefs
+
+DeclDef:
+	AttributeSpecifier
+	ImportDeclaration
+	EnumDeclaration
+	ClassDeclaration
+	InterfaceDeclaration
+	AggregateDeclaration
+	Declaration
+	Constructor
+	Destructor
+	UnitTest
+	StaticConstructor
+	StaticDestructor
+SharedStaticConstructor
+	SharedStaticDestructor
+	ConditionalDeclaration
+	DebugSpecification
+	VersionSpecification
+	StaticAssert
+	TemplateDeclaration
+	TemplateMixin
+	MixinDeclaration
+	;

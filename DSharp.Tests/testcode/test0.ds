@@ -1,0 +1,60 @@
+﻿namespace MyNamespace;
+
+import System;
+
+@entrypoint foo(string[] args)
+{
+	//auto obj=new System.Object();
+	//Object obj2=new Object();
+
+	// Primitive local definition
+	int i=3;
+
+	// Assignment + Conversion
+	i=45L;
+
+	// Incr. assign
+	i+=5;
+
+	// Integer argument
+	System.Console.WriteLine(i);
+
+	// Eq test
+	if(i==50)
+		System.Console.WriteLine("Eq test successful");
+	else 
+		System.Console.WriteLine("Error");
+
+	// Uneq test
+	if(i!=11)
+		System.Console.WriteLine("Unequal Test Successful");
+	else
+		System.Console.WriteLine("Error");
+
+	// Expression test
+	i==50, System.Console.WriteLine("Expression test successful"), System.Console.WriteLine("Post-void expression");
+
+	i!=45, System.Console.WriteLine("Expression test(2) successful");
+
+	System.Console.WriteLine("Hello World!");
+	
+	if("lol" == "lol")
+		if(1!=3)
+			System.Console.WriteLine("Nested test complete");
+
+	// Numeric negation tests
+	System.Console.WriteLine(-1234);
+	System.Console.WriteLine(1234);
+	System.Console.WriteLine((-1234));
+
+	// Bool tests
+	System.Console.WriteLine(!i);
+	System.Console.WriteLine(!true);
+	System.Console.WriteLine(!false);
+
+	System.Console.WriteLine(true);
+	//TODO: Throw error on numeric bool negation
+	System.Console.WriteLine(-false);
+
+	System.Console.ReadLine();
+}

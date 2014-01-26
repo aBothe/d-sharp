@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GenericLanguageDefinition"
+    targetNamespace="http://tempuri.org/GenericLanguageDefinition.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/GenericLanguageDefinition.xsd"
+    xmlns:mstns="http://tempuri.org/GenericLanguageDefinition.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="Notes" type="xs:string"/>
+	
+	<xs:element name="Language">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="Element"/>
+				<xs:element ref="ElementChoice"/>
+				<xs:element ref="DefinedSequence"/>
+				<xs:element ref="Token"/>
+			</xs:choice>
+
+			<xs:attribute name="RootElement" type="xs:Name" use="required"/>
+			<xs:attribute name="Name" type="xs:Name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Element">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="Notes"/>
+				<xs:element ref="SubElement"/>
+				<xs:element ref="Token"/>
+			</xs:choice>
+			<xs:attribute name="Id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ElementChoice">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="Notes"/>
+				<xs:element ref="SubElement"/>
+				<xs:element ref="Token"/>
+			</xs:choice>
+			<xs:attribute name="Id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DefinedSequence">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="1">
+				<xs:element ref="Notes"/>
+				<xs:element ref="Token"/>
+				<xs:element ref="SubElement"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="SubElement">
+		<xs:complexType>
+			<xs:attribute name="OnceOnly" default="false" type="xs:boolean"/>
+			<xs:attribute name="IsOptional" default="false" type="xs:boolean"/>
+			
+			<xs:attribute name="Ref" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Token">
+		<xs:complexType>
+			<!-- Token reference -->
+			<xs:attribute name="Ref" type="xs:string"/>
+			
+			<!-- Token definition -->
+			<xs:attribute name="Id" type="xs:string"/>
+			<xs:attribute name="Text" type="xs:string"/>
+			<xs:attribute name="Pattern" type="xs:string"/>
+
+			<!-- Usage params -->
+			<xs:attribute name="OnceOnly" default="false" type="xs:boolean"/>
+			<xs:attribute name="IsOptional" default="false" type="xs:boolean"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
