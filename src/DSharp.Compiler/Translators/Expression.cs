@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection.Emit;
 using D_Parser.Dom.Expressions;
-using DSharp.Parser;
 using System.Reflection;
 using D_Parser.Dom.Statements;
+using D_Parser.Parser;
 
 namespace DSharp.Compiler.Translators
 {
@@ -298,14 +298,14 @@ namespace DSharp.Compiler.Translators
 
 				if (curEx is PostfixExpression_Access)
 				{
-					methodName = (curEx as PostfixExpression_Access).TemplateOrIdentifier.ToString(false);
+					methodName = (curEx as PostfixExpression_Access).AccessExpression.ToString();
 					curEx = (curEx as PostfixExpression).PostfixForeExpression;
 
 					while (curEx != null)
 					{
 						if (curEx is PostfixExpression_Access)
 						{
-							typeName = '.' + (curEx as PostfixExpression_Access).TemplateOrIdentifier.ToString(false) + typeName;
+							typeName = '.' + (curEx as PostfixExpression_Access).AccessExpression.ToString() + typeName;
 
 							curEx = (curEx as PostfixExpression_Access).PostfixForeExpression;
 						}
@@ -397,7 +397,7 @@ namespace DSharp.Compiler.Translators
 				// If it's a const string, push it onto the stack
 				if (ie.Format == LiteralFormat.StringLiteral || ie.Format == LiteralFormat.VerbatimStringLiteral)
 				{
-					il.Emit(OpCodes.Ldstr, ie.Value as string);
+					il.Emit(OpCodes.Ldstr, ie.StringValue);
 					return;
 				}
 
@@ -470,7 +470,7 @@ namespace DSharp.Compiler.Translators
 		{
 			if (lValue is IdentifierExpression)
 			{
-				var local = StatementCompiler.Locals.TryGetLocal(Scope, (lValue as IdentifierExpression).Value as string);
+				var local = StatementCompiler.Locals.TryGetLocal(Scope, (lValue as IdentifierExpression).StringValue);
 
 				il.Emit(OpCodes.Stloc, local);
 			}
@@ -535,7 +535,7 @@ namespace DSharp.Compiler.Translators
 				var ie = ex as IdentifierExpression;
 
 				// If it's a scalar value
-				if (ie.IsConstant)
+				if (ie.Format == LiteralFormat.Scalar)
 					return ie.Value.GetType();
 
 				if (ie.Format == LiteralFormat.StringLiteral)
@@ -582,7 +582,8 @@ namespace DSharp.Compiler.Translators
 			}
 
 			//TODO: Remove incomplete resolution - what if there's a function called and you got to know its return type?
-			return ModCmp.TypeResolver.ResolveType(ex.ExpressionTypeRepresentation);
+			//return ModCmp.TypeResolver.ResolveType(ex);
+			return null;
 		}
 	}
 }

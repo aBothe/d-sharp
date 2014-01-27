@@ -45,7 +45,7 @@ namespace DSharp.Compiler.Translators
 					var method=MethodBuilder.GenGlobalMethod(mb, dm);
 
 					//TODO: Also types' member functions shall be entrypoints!
-					if (dm.IsEntryFunction)
+					if (dm.Name == "main")
 						entryPoint=method;
 				}
 			}

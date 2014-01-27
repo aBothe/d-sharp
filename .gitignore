@@ -1,0 +1,6 @@
+src/DSharp.Tests/bin
+src/DSharp.Tests/obj
+src/DSharp.Compiler/bin
+src/DSharp.Compiler/obj
+*.suo
+*.userprefs

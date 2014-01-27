@@ -5,8 +5,8 @@ using System.Text;
 using D_Parser.Dom;
 using System.Reflection.Emit;
 using System.Reflection;
-using DSharp.Parser;
 using D_Parser.Dom.Statements;
+using D_Parser.Parser;
 
 namespace DSharp.Compiler.Translators
 {
@@ -24,7 +24,8 @@ namespace DSharp.Compiler.Translators
 
 			foreach (var attr in Method.Attributes)
 			{
-				switch (attr.Token)
+				if(attr is Modifier)
+				switch ((attr as Modifier).Token)
 				{
 					case DTokens.Public:
 						a |= MethodAttributes.Public;
@@ -60,12 +61,7 @@ namespace DSharp.Compiler.Translators
 
 			var attrs=GenMethodAttributes(Method);
 
-			if(Method.IsEntryFunction)
-			{
-				attrs=MethodAttributes.Static;
-			}
-
-			var metb = mb.DefineGlobalMethod(Method.Name, attrs, Method.IsEntryFunction ? typeof(void) : ModCmp.TypeResolver.ResolveType(Method.Type), parameters.Count < 1 ? Type.EmptyTypes : parameters.ToArray());
+			var metb = mb.DefineGlobalMethod(Method.Name, attrs, ModCmp.TypeResolver.ResolveType(Method.Type), parameters.Count < 1 ? Type.EmptyTypes : parameters.ToArray());
 			
 			var il=metb.GetILGenerator();
 

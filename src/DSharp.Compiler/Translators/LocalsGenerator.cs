@@ -5,8 +5,8 @@ using System.Text;
 using D_Parser.Dom;
 using System.Reflection.Emit;
 using D_Parser.Dom.Statements;
-using DSharp.Parser;
 using D_Parser.Dom.Expressions;
+using D_Parser.Parser;
 
 namespace DSharp.Compiler.Translators
 {
@@ -102,7 +102,7 @@ namespace DSharp.Compiler.Translators
 
 		public LocalBuilder TryGetLocal(IStatement CurrentStatementLevel, string Name)
 		{
-			var declLimit=CurrentStatementLevel.StartLocation;
+			var declLimit=CurrentStatementLevel.Location;
 
 			while (CurrentStatementLevel != null)
 			{
@@ -112,7 +112,7 @@ namespace DSharp.Compiler.Translators
 
 					if(dcs.Declarations!=null)
 						foreach (var decl in dcs.Declarations)
-							if (decl.StartLocation <= declLimit && decl.Name == Name)
+							if (decl.Location <= declLimit && decl.Name == Name)
 							{
 								LocalBuilder ret = null;
 

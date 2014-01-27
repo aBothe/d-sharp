@@ -1,0 +1,3 @@
+[submodule "src/ext/Parser"]
+	path = src/ext/Parser
+	url = https://github.com/aBothe/D_Parser.git

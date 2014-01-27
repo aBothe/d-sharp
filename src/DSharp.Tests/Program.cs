@@ -5,6 +5,7 @@ using System.Text;
 using DSharp.Compiler;
 using System.IO;
 using System.Reflection;
+using D_Parser.Parser;
 
 namespace DSharp.Tests
 {
@@ -14,7 +15,7 @@ namespace DSharp.Tests
 		{
 			var testContent=res.test0;
 
-			var mod=DSharp.Parser.DParser.ParseString(testContent);
+			var mod= DParser.ParseString(testContent);
 
 			mod.FileName = "testModule.d";
 			mod.Name = "testModule";

@@ -1,8 +1,8 @@
-﻿namespace MyNamespace;
+﻿module MyNamespace;
 
 import System;
 
-@entrypoint foo(string[] args)
+static void main(string[] args)
 {
 	//auto obj=new System.Object();
 	//Object obj2=new Object();

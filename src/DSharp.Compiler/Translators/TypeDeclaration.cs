@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using D_Parser.Dom;
-using DSharp.Parser;
 using System.Reflection;
+using D_Parser.Parser;
 
 namespace DSharp.Compiler.Translators
 {
@@ -57,6 +57,9 @@ namespace DSharp.Compiler.Translators
 					case DTokens.True:
 					case DTokens.False:
 						return typeof(bool);
+
+					case DTokens.Void:
+						return typeof(void);
 				}
 
 				//TODO:
@@ -106,7 +109,7 @@ namespace DSharp.Compiler.Translators
 			{
 				if (decl is IdentifierDeclaration && !(decl is DTokenDeclaration))
 				{
-					ret = (decl as IdentifierDeclaration).Value as string+'.'+ret;
+					ret = (decl as IdentifierDeclaration).Id +'.'+ret;
 				}
 				else
 				{
